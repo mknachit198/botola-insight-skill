@@ -1,0 +1,17 @@
+{
+  "match_key": "a-renseigner",
+  "title": "",
+  "team_name": "",
+  "opponent": "",
+  "focus_venue": null,
+  "competition": "Botola Pro",
+  "season": "",
+  "date": null,
+  "date_verified": false,
+  "date_source": "",
+  "score_declared": null,
+  "roster": {"team": "", "players": []},
+  "kit_hints": {"raja": [], "raja_gk": [], "opponent": [], "opponent_gk": [], "referee": []},
+  "scoreboard": {"layout": "arryadia_2026"},
+  "pitch": {"length_m": 105.0, "width_m": 68.0, "dimensions_verified": false}
+}

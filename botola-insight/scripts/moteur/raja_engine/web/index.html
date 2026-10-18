@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raja Insight — moteur vidéo</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot"></span><div><strong>Raja Insight</strong><small id="match-title">Moteur d'analyse vidéo</small></div></div>
+  <nav id="tabs">
+    <button data-tab="traitement" class="on">Traitement</button>
+    <button data-tab="questions">Questions <span id="q-badge" class="badge"></span></button>
+    <button data-tab="joueurs">Joueurs</button>
+    <button data-tab="chronologie">Chronologie</button>
+    <button data-tab="exports">Exports</button>
+  </nav>
+</header>
+
+<main>
+  <section id="traitement" class="tab on">
+    <div class="grid2">
+      <div class="card">
+        <h2>Charger une vidéo</h2>
+        <p class="muted">Le fichier original est lu sur cette machine, sans ré-encodage (son empreinte doit rester identique à celle des corrections). Une mi-temps ou un enregistrement par fichier.</p>
+        <form id="f-path">
+          <label>Chemin du fichier sur cette machine<input name="video_path" placeholder="/chemin/vers/match_partie1.mp4" required></label>
+          <div class="row">
+            <label>Partie<select name="period"><option value="">auto (empreinte)</option><option value="1">1</option><option value="2">2</option></select></label>
+            <label>Images analysées / s<input name="det_fps" type="number" step="0.5" min="1" max="25" value="5"></label>
+            <label>Modèle<select name="model"><option value="yolox_tiny.onnx">rapide (YOLOX-tiny)</option><option value="yolox_s.onnx">précis (YOLOX-s, ×4 plus lent)</option></select></label>
+          </div>
+          <button class="primary">Lancer le traitement</button>
+        </form>
+        <details><summary>…ou téléverser le fichier dans l'interface</summary>
+          <form id="f-upload"><input type="file" name="file" accept="video/*" required>
+            <select name="period"><option value="">auto</option><option value="1">1</option><option value="2">2</option></select>
+            <button>Téléverser et lancer</button><span id="up-prog" class="muted"></span></form>
+        </details>
+      </div>
+      <div class="card">
+        <h2>État</h2>
+        <div id="pending-box"></div>
+        <div id="runner-error" class="error" hidden></div>
+      </div>
+    </div>
+    <div id="sessions"></div>
+  </section>
+
+  <section id="questions" class="tab">
+    <div class="qhead">
+      <div><h2>Parcours des questions</h2><p class="muted">Les questions bloquantes passent d'abord, puis l'ordre chronologique. Chaque réponse est enregistrée immédiatement (journal en ajout seul) et réutilisée à la relance.</p></div>
+      <div class="filters"><select id="q-kind"><option value="">Tous les types</option></select>
+        <select id="q-status"><option value="pending">En attente</option><option value="resolved">Répondues</option><option value="all">Toutes</option></select></div>
+    </div>
+    <div id="q-panel"></div>
+  </section>
+
+  <section id="joueurs" class="tab">
+    <div class="qhead"><div><h2>Statistiques par joueur</h2>
+      <p class="muted">« — » = inconnu (jamais zéro). Les événements sont des minima repérés, pas des totaux du match. Survolez une valeur pour sa méthode ; cliquez sur un joueur pour les preuves.</p></div>
+      <button id="refresh-stats">Recalculer</button></div>
+    <div id="cov"></div>
+    <div class="tablewrap"><table id="t-players"></table></div>
+    <div id="player-detail"></div>
+  </section>
+
+  <section id="chronologie" class="tab"><div id="tl"></div></section>
+
+  <section id="exports" class="tab"><div class="card" id="exp"></div></section>
+</main>
+
+<template id="tpl-session">
+  <div class="card session">
+    <div class="srow"><h3 class="s-title"></h3><span class="s-status pill"></span></div>
+    <div class="progress"><div class="bar"></div></div>
+    <p class="s-prog muted"></p>
+    <ol class="stages"></ol>
+    <div class="s-wait"></div>
+    <div class="actions">
+      <button data-a="run">Lancer / reprendre</button>
+      <button data-a="stop">Arrêter</button>
+      <button data-a="continue" title="Poursuivre sans répondre aux identités en attente">Continuer sans répondre</button>
+      <button data-a="recompute" title="Réappliquer toutes les réponses (identités, couleurs, ralentis) puis recalculer">Recalculer avec mes réponses</button>
+    </div>
+  </div>
+</template>
+<script src="/static/app.js"></script>
+</body>
+</html>
