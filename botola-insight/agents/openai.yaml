@@ -1,0 +1,4 @@
+interface:
+  display_name: "Botola Insight Skill"
+  short_description: "Analyse vidéo Botola, référence et tests Raja"
+  default_prompt: "Utilise $botola-insight pour analyser cet extrait de match en suivant le protocole de lecture et en laissant les identités incertaines inconnues."

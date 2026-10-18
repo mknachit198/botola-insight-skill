@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lectures visuelles Botola Insight — format historique v8",
+  "type": "object",
+  "required": ["reader", "readings"],
+  "properties": {
+    "reader": {"type": "string", "minLength": 1},
+    "protocol": {"type": "string"},
+    "notes": {"type": "object", "description": "Notes historiques facultatives, jamais utilisées comme preuve."},
+    "readings": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "type": "object",
+          "patternProperties": {"^[1-9][0-9]*$": {"$ref": "#/$defs/reading"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "reading": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["number", "part", "conf"],
+          "properties": {
+            "number": {"type": "integer", "minimum": 0, "maximum": 99},
+            "part": {"enum": ["back", "front", "short"]},
+            "conf": {"enum": ["high", "medium", "low"]}
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

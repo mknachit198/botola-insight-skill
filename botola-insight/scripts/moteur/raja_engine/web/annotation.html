@@ -1,0 +1,355 @@
+<title>Vérité terrain partie 7</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout : bandeau d'état collant, puis une chaîne à la fois (recadrages en grille fluide) avec sa barre de réponse ; index des chaînes en dessous. */
+:root {
+  --bg: #f3f5f2; --panel: #ffffff; --fg: #18211b; --muted: #5d6b61; --line: #d5ddd6;
+  --accent: #0d6b3b; --accent-fg: #ffffff; --chip: #e7ede8; --warn: #a24b0b; --bad: #a3242c; --ok: #1f7a46;
+  --sel: #f2c84b;
+  --f-num: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111613; --panel: #19201b; --fg: #e6ece7; --muted: #9aa89e; --line: #2c3730;
+  --accent: #3fae6f; --accent-fg: #07130b; --chip: #232c26; --warn: #e39a5a; --bad: #ef7b82; --ok: #5cc68a; --sel: #d9b23a;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #111613; --panel: #19201b; --fg: #e6ece7; --muted: #9aa89e; --line: #2c3730;
+  --accent: #3fae6f; --accent-fg: #07130b; --chip: #232c26; --warn: #e39a5a; --bad: #ef7b82; --ok: #5cc68a; --sel: #d9b23a;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 15px/1.45 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 48px; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+h1, h2 { font-family: var(--f-num); font-weight: 700; letter-spacing: .01em; text-wrap: balance; margin: 0; }
+h1 { font-size: 1.6rem; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 14px; }
+header.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  padding-block: 12px 10px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.prog { display: flex; gap: 14px; flex-wrap: wrap; font-variant-numeric: tabular-nums; color: var(--muted); }
+.prog b { color: var(--fg); font-family: var(--f-num); font-size: 1.15rem; }
+.meter { width: 120px; height: 6px; background: var(--chip); border-radius: 3px; overflow: hidden; align-self: center; }
+.meter i { display: block; height: 100%; background: var(--accent); }
+.store { font-size: .85rem; color: var(--muted); }
+.store.ok::before { content: "● "; color: var(--ok); }
+.store.local::before { content: "● "; color: var(--warn); }
+.spacer { flex: 1; }
+button, select, input { font: inherit; color: var(--fg); }
+button { background: var(--chip); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.help { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+details.help summary { cursor: pointer; font-weight: 600; }
+details.help ul { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; max-width: 70ch; }
+kbd { font-family: var(--f-num); background: var(--chip); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; }
+.chain { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 12px; min-width: 0; }
+.chead { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; }
+.chead h2 { font-size: 1.5rem; }
+.tag { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; padding: 2px 8px; border-radius: 999px; background: var(--chip); color: var(--muted); }
+.tag.test { color: var(--accent); }
+.meta { color: var(--muted); font-variant-numeric: tabular-nums; }
+.crops { display: flex; flex-wrap: wrap; gap: 10px; }
+.crop { display: grid; gap: 4px; justify-items: center; }
+.sprite { background-repeat: no-repeat; border-radius: 4px; outline: 3px solid transparent; }
+.crop.diff .sprite { outline-color: var(--sel); }
+.crop .lab { font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.crop select { font-size: .82rem; padding: 2px 4px; border-radius: 4px; border: 1px solid var(--line); background: var(--panel); max-width: 120px; }
+.ctx { display: grid; gap: 4px; }
+.ctx .sprite { border: 1px solid var(--line); }
+.answer { display: grid; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.nums { display: flex; flex-wrap: wrap; gap: 8px; }
+.nums button { font-family: var(--f-num); font-weight: 700; font-size: 1.35rem; min-width: 52px; padding: 4px 10px; }
+.nums button.on { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.nums button.alt { font-family: var(--f-body); font-weight: 600; font-size: .95rem; }
+.nums button.alt.on.unk { background: var(--warn); border-color: var(--warn); color: var(--accent-fg); }
+.nums button.alt.on.nr { background: var(--bad); border-color: var(--bad); color: var(--accent-fg); }
+.row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.row input[type=text] { flex: 1 1 260px; min-width: 0; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+.row input.other { width: 76px; flex: none; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); }
+.buf { font-family: var(--f-num); font-size: 1.2rem; min-width: 3ch; color: var(--accent); }
+.status { font-size: .9rem; color: var(--muted); min-height: 1.3em; }
+.index { display: flex; flex-wrap: wrap; gap: 4px; }
+.index button { font-family: var(--f-num); font-size: .95rem; padding: 2px 6px; min-width: 42px; }
+.index button.done { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.index button.unk { background: var(--warn); color: var(--accent-fg); border-color: var(--warn); }
+.index button.cur { outline: 2px solid var(--fg); }
+.index h3 { width: 100%; margin: 8px 0 2px; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.export textarea { width: 100%; min-height: 120px; font: 12px/1.4 ui-monospace, monospace; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.filters button.on { background: var(--fg); color: var(--bg); }
+@media (max-width: 560px) { .nums button { min-width: 44px; font-size: 1.15rem; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="bar">
+    <h1>Vérité terrain · partie 7</h1>
+    <div class="prog" id="prog"></div>
+    <span class="spacer"></span>
+    <span class="store" id="store">Chargement…</span>
+  </header>
+
+  <details class="help" id="help">
+    <summary>Comment répondre (3 à 4 h au total, une seule fois)</summary>
+    <ul>
+      <li>Chaque bloc montre une <b>chaîne</b> du suivi : 8 à 12 recadrages répartis du début à la fin, plus le plan entier avec la boîte entourée.</li>
+      <li>Donnez le <b>numéro du joueur</b> s'il est sûr (dos, short, ou toute autre certitude). Sinon <b>Inconnu</b>. Ne devinez pas : un inconnu ne coûte rien, une erreur fausse toutes les mesures.</li>
+      <li>Si la boîte passe sur <b>un autre joueur</b> en cours de chaîne, gardez la réponse principale et corrigez les recadrages concernés avec leur menu (bordure jaune = différent).</li>
+      <li><b>Pas un joueur Raja</b> : arbitre, adversaire, gardien adverse, public. Le gardien du Raja est le n°1.</li>
+      <li>Clavier : tapez le numéro puis <kbd>Entrée</kbd> (enregistre et passe à la suivante), <kbd>I</kbd> inconnu, <kbd>X</kbd> pas Raja, <kbd>←</kbd> <kbd>→</kbd> pour naviguer.</li>
+      <li>Les chaînes <b>test</b> (3 premières minutes de direct) servent à la mesure finale ; les chaînes <b>réglage</b> servent à choisir les règles. Faites les deux si possible, test d'abord.</li>
+      <li>La page ne montre volontairement aucune proposition du moteur.</li>
+    </ul>
+  </details>
+
+  <div class="filters" id="filters" role="group" aria-label="Filtrer les chaînes">
+    <button data-f="all" class="on">Toutes</button>
+    <button data-f="test">Test</button>
+    <button data-f="reglage">Réglage</button>
+    <button data-f="todo">Sans réponse</button>
+  </div>
+
+  <section class="chain" id="chain" aria-live="polite"></section>
+
+  <section class="chain">
+    <div class="index" id="index"></div>
+  </section>
+
+  <details class="help export">
+    <summary>Exporter les réponses (JSON)</summary>
+    <p class="meta">Utile si la page est ouverte hors de l'artefact : copiez ce texte dans un fichier <code>answers_part7.json</code>.</p>
+    <div class="row"><button id="copy">Copier</button><span class="status" id="copystat"></span></div>
+    <textarea id="json" readonly aria-label="Réponses au format JSON"></textarea>
+  </details>
+</div>
+
+<script src="annotation_data.js"></script>
+<script>
+(function () {
+  const ROSTER = [2, 3, 7, 11, 13, 14, 19, 21, 30, 45, 1];
+  const LS_KEY = "raja_gt_part7_v1";
+  let DATA = window.ANNOTATION_DATA || null;
+  let answers = {};          // "c207" -> {default, crops:{k:v}, note, set, chain, updated}
+  let db = null, col = null;
+  let filter = "all", pos = 0, buf = "";
+  const $ = (id) => document.getElementById(id);
+
+  function lsLoad() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); } catch (e) { return {}; } }
+  function lsSave() { try { localStorage.setItem(LS_KEY, JSON.stringify(answers)); } catch (e) {} }
+
+  function list() {
+    const cs = DATA.chains;
+    if (filter === "test") return cs.filter(c => c.set === "test");
+    if (filter === "reglage") return cs.filter(c => c.set === "reglage");
+    if (filter === "todo") return cs.filter(c => !answers["c" + c.id]);
+    return cs;
+  }
+  function labelOf(v) {
+    if (v === "unknown") return "Inconnu";
+    if (v === "not_raja") return "Pas Raja";
+    return "n° " + v;
+  }
+
+  function sprite(chain, x, w, h) {
+    const s = h / DATA.strip_h;
+    const d = document.createElement("div");
+    d.className = "sprite";
+    d.style.width = Math.round(w * s) + "px";
+    d.style.height = Math.round(h) + "px";
+    d.style.backgroundImage = "url('strips/" + chain.id + ".jpg')";
+    d.style.backgroundSize = Math.round(chain.strip_w * s) + "px " + Math.round(h) + "px";
+    d.style.backgroundPosition = (-Math.round(x * s)) + "px 0";
+    return d;
+  }
+
+  function cropH() { return window.innerWidth < 560 ? 170 : 230; }
+
+  function render() {
+    const cs = list();
+    const box = $("chain");
+    box.innerHTML = "";
+    if (!cs.length) { box.textContent = "Aucune chaîne dans ce filtre."; renderIndex(); return; }
+    pos = Math.max(0, Math.min(pos, cs.length - 1));
+    const c = cs[pos];
+    const a = answers["c" + c.id] || null;
+    const head = document.createElement("div"); head.className = "chead";
+    head.innerHTML = '<h2>Chaîne ' + c.id + '</h2><span class="tag ' + c.set + '">' + c.set + '</span>' +
+      '<span class="meta">t = ' + c.t_start.toFixed(1) + ' → ' + c.t_end.toFixed(1) + ' s · ' +
+      (c.t_end - c.t_start).toFixed(1) + ' s · ' + c.n_obs + ' observations · ' + (pos + 1) + '/' + cs.length + '</span>';
+    box.appendChild(head);
+    const grid = document.createElement("div"); grid.className = "crops";
+    const h = cropH();
+    c.crops.forEach(cr => {
+      const cell = document.createElement("div"); cell.className = "crop";
+      const v = a && a.crops && a.crops[cr.k];
+      if (v) cell.classList.add("diff");
+      cell.appendChild(sprite(c, cr.x, cr.w, h));
+      const lab = document.createElement("span"); lab.className = "lab"; lab.textContent = "c" + cr.k + " · " + cr.t.toFixed(1) + " s";
+      cell.appendChild(lab);
+      const sel = document.createElement("select"); sel.id = "crop-" + c.id + "-" + cr.k;
+      sel.setAttribute("aria-label", "Recadrage " + cr.k);
+      const opts = [["", "= réponse"], ...ROSTER.map(n => [String(n), "n° " + n]), ["unknown", "Inconnu"], ["not_raja", "Pas Raja"]];
+      opts.forEach(([val, txt]) => { const o = document.createElement("option"); o.value = val; o.textContent = txt; sel.appendChild(o); });
+      sel.value = v || "";
+      sel.addEventListener("change", () => setCrop(c, cr.k, sel.value));
+      cell.appendChild(sel);
+      grid.appendChild(cell);
+    });
+    if (c.ctx) {
+      const cx = document.createElement("div"); cx.className = "ctx crop";
+      cx.appendChild(sprite(c, c.ctx.x, c.ctx.w, Math.min(h, 200)));
+      const lab = document.createElement("span"); lab.className = "lab"; lab.textContent = "plan entier · " + c.ctx.t.toFixed(1) + " s";
+      cx.appendChild(lab); grid.appendChild(cx);
+    }
+    const ans = document.createElement("div"); ans.className = "answer";
+    const nums = document.createElement("div"); nums.className = "nums"; nums.setAttribute("role", "group"); nums.setAttribute("aria-label", "Numéro de la chaîne");
+    ROSTER.forEach(n => {
+      const b = document.createElement("button"); b.textContent = n === 1 ? "1 gk" : n;
+      b.title = n === 1 ? "Gardien du Raja" : "Numéro " + n;
+      if (a && a.default === String(n)) b.classList.add("on");
+      b.addEventListener("click", () => setDefault(c, String(n), false));
+      nums.appendChild(b);
+    });
+    const unk = document.createElement("button"); unk.className = "alt unk"; unk.textContent = "Inconnu";
+    if (a && a.default === "unknown") unk.classList.add("on");
+    unk.addEventListener("click", () => setDefault(c, "unknown", false));
+    const nr = document.createElement("button"); nr.className = "alt nr"; nr.textContent = "Pas un joueur Raja";
+    if (a && a.default === "not_raja") nr.classList.add("on");
+    nr.addEventListener("click", () => setDefault(c, "not_raja", false));
+    nums.append(unk, nr);
+    ans.appendChild(nums);
+
+    const row = document.createElement("div"); row.className = "row";
+    const other = document.createElement("input"); other.className = "other"; other.id = "other-" + c.id; other.type = "number"; other.min = "1"; other.max = "99";
+    other.placeholder = "autre n°"; other.setAttribute("aria-label", "Autre numéro");
+    if (a && !ROSTER.map(String).includes(a.default) && /^\d+$/.test(a.default || "")) other.value = a.default;
+    other.addEventListener("change", () => { if (other.value) setDefault(c, String(parseInt(other.value, 10)), false); });
+    const note = document.createElement("input"); note.type = "text"; note.id = "note-" + c.id; note.placeholder = "Remarque (facultatif)";
+    note.setAttribute("aria-label", "Remarque"); note.value = (a && a.note) || "";
+    note.addEventListener("change", () => setNote(c, note.value));
+    const prev = document.createElement("button"); prev.textContent = "← Précédente"; prev.addEventListener("click", () => go(-1));
+    const next = document.createElement("button"); next.textContent = "Suivante →"; next.addEventListener("click", () => go(1));
+    const b2 = document.createElement("span"); b2.className = "buf"; b2.id = "buf"; b2.textContent = buf;
+    row.append(other, note, b2, prev, next);
+    ans.appendChild(row);
+    const st = document.createElement("div"); st.className = "status"; st.id = "status";
+    st.textContent = a ? ("Réponse : " + labelOf(a.default) + (a.crops && Object.keys(a.crops).length ? " · " + Object.keys(a.crops).length + " recadrage(s) corrigé(s)" : "")) : "Pas encore de réponse.";
+    ans.appendChild(st);
+    box.appendChild(ans);
+    box.appendChild(grid);
+    renderIndex(); renderProg(); renderJson();
+  }
+
+  function renderIndex() {
+    const idx = $("index"); idx.innerHTML = "";
+    const cs = list(); let lastSet = null;
+    cs.forEach((c, i) => {
+      if (c.set !== lastSet) { const h = document.createElement("h3"); h.textContent = c.set === "test" ? "Test" : "Réglage"; idx.appendChild(h); lastSet = c.set; }
+      const b = document.createElement("button"); b.textContent = c.id;
+      const a = answers["c" + c.id];
+      if (a) b.classList.add(a.default === "unknown" ? "unk" : "done");
+      if (i === pos) b.classList.add("cur");
+      b.title = a ? labelOf(a.default) : "sans réponse";
+      b.addEventListener("click", () => { pos = i; buf = ""; render(); window.scrollTo({ top: 0 }); });
+      idx.appendChild(b);
+    });
+  }
+
+  function renderProg() {
+    const cs = DATA.chains;
+    const cnt = (s) => cs.filter(c => c.set === s).length;
+    const done = (s) => cs.filter(c => c.set === s && answers["c" + c.id]).length;
+    const p = $("prog");
+    const pct = Math.round(100 * (done("test") + done("reglage")) / cs.length);
+    p.innerHTML = '<span>Test <b>' + done("test") + '</b>/' + cnt("test") + '</span><span>Réglage <b>' + done("reglage") + '</b>/' + cnt("reglage") +
+      '</span><span class="meter" aria-hidden="true"><i style="width:' + pct + '%"></i></span>';
+  }
+  function renderJson() { $("json").value = JSON.stringify(answers, null, 1); }
+
+  async function persist(c) {
+    const key = "c" + c.id;
+    lsSave();
+    if (col) {
+      try { await col.doc(key).set(answers[key]); setStatus("Enregistré dans l'artefact."); }
+      catch (e) { setStatus("Non enregistré dans l'artefact (" + (e && e.code || "erreur") + ") ; gardé dans ce navigateur."); }
+    } else { setStatus("Gardé dans ce navigateur ; pensez à exporter."); }
+  }
+  function setStatus(t) { const s = $("status"); if (s) s.textContent = t; }
+
+  function base(c) {
+    const key = "c" + c.id;
+    if (!answers[key]) answers[key] = { chain: c.id, set: c.set, default: "", crops: {}, note: "" };
+    return answers[key];
+  }
+  function setDefault(c, v, advance) {
+    const a = base(c); a.default = v; a.updated = new Date().toISOString();
+    persist(c); buf = "";
+    if (advance) go(1); else render();
+  }
+  function setCrop(c, k, v) {
+    const a = base(c); if (!a.default) a.default = "unknown";
+    if (v) a.crops[k] = v; else delete a.crops[k];
+    a.updated = new Date().toISOString(); persist(c); render();
+  }
+  function setNote(c, t) { const a = base(c); if (!a.default) a.default = "unknown"; a.note = t; a.updated = new Date().toISOString(); persist(c); }
+  function go(d) { pos += d; buf = ""; render(); }
+
+  document.addEventListener("keydown", (e) => {
+    if (!DATA) return;
+    const tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
+    const cs = list(); if (!cs.length) return;
+    const c = cs[Math.max(0, Math.min(pos, cs.length - 1))];
+    if (/^[0-9]$/.test(e.key)) { buf = (buf + e.key).slice(-2); const b = $("buf"); if (b) b.textContent = buf; e.preventDefault(); }
+    else if (e.key === "Backspace") { buf = buf.slice(0, -1); const b = $("buf"); if (b) b.textContent = buf; }
+    else if (e.key === "Enter") { if (buf) { setDefault(c, String(parseInt(buf, 10)), true); } else go(1); e.preventDefault(); }
+    else if (e.key === "i" || e.key === "I") setDefault(c, "unknown", true);
+    else if (e.key === "x" || e.key === "X") setDefault(c, "not_raja", true);
+    else if (e.key === "ArrowRight") go(1);
+    else if (e.key === "ArrowLeft") go(-1);
+  });
+  $("filters").addEventListener("click", (e) => {
+    const b = e.target.closest("button"); if (!b) return;
+    filter = b.dataset.f; pos = 0; buf = "";
+    document.querySelectorAll("#filters button").forEach(x => x.classList.toggle("on", x === b));
+    render();
+  });
+  $("copy").addEventListener("click", () => {
+    const t = $("json");
+    navigator.clipboard.writeText(t.value).then(() => { $("copystat").textContent = "Copié."; },
+      () => { t.select(); $("copystat").textContent = "Copie refusée : le texte est sélectionné, utilisez Ctrl/Cmd+C."; });
+  });
+  let rt = null;
+  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (DATA) render(); }, 150); });
+
+  async function start() {
+    if (!DATA) {
+      try { DATA = await (await fetch("annotation_data.json")).json(); } catch (e) {}
+    }
+    if (!DATA) { $("chain").textContent = "Données d'annotation introuvables (annotation_data.js)."; $("store").textContent = ""; return; }
+    answers = lsLoad();
+    const first = DATA.chains.findIndex(c => !answers["c" + c.id]); pos = first < 0 ? 0 : first;
+    $("store").textContent = "Réponses gardées dans ce navigateur"; $("store").className = "store local";
+    render();
+    try {
+      db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+    } catch (e) { db = null; }
+    if (db) {
+      col = db.collection("annotations");
+      $("store").textContent = "Réponses enregistrées dans l'artefact"; $("store").className = "store ok";
+      col.onSnapshot((snap) => {
+        snap.docs.forEach(d => { const v = d.data(); if (v) answers[d.id] = v; });
+        lsSave(); render();
+      }, (e) => { $("store").textContent = "Base indisponible (" + (e && e.code) + ") : réponses gardées dans ce navigateur"; $("store").className = "store local"; });
+      // réponses saisies hors ligne avant l'ouverture dans l'artefact : on les envoie une fois
+      for (const [k, v] of Object.entries(lsLoad())) {
+        try { const s = await col.doc(k).get(); if (!s.exists) await col.doc(k).set(v); } catch (e) {}
+      }
+    }
+  }
+  start();
+})();
+</script>

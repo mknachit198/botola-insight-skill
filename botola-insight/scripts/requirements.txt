@@ -1,0 +1,11 @@
+# Base compatible Python >=3.10 ; environnement de reproduction en Python 3.12.
+# La borne NumPy évite l'échec natif rencontré avec 2.5.4 dans cet environnement.
+numpy>=1.26,<2.4
+opencv-python-headless>=4.9,<6
+onnxruntime>=1.17,<2
+scipy>=1.11,<2
+scikit-learn>=1.4,<2
+pytesseract>=0.3.10,<1
+flask>=3.0,<4
+Pillow>=10,<14
+ortools>=9.10,<10
