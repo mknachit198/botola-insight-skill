@@ -1,0 +1,57 @@
+OK   empreinte sha256-3x64k-v1 identique au portail (taille 10)
+OK   empreinte sha256-3x64k-v1 identique au portail (taille 65536)
+OK   empreinte sha256-3x64k-v1 identique au portail (taille 200000)
+OK   empreinte sha256-3x64k-v1 identique au portail (taille 1000003)
+OK   questions.json supprimé : la demande disparaît de l'état…
+OK   …mais la réponse est restaurée depuis le journal en ajout seul
+OK   l'ancienne réponse reste dans l'historique
+OK   une demande existante dont le temps change est refusée (conflit)
+OK   anciennes questions d'action : choix « faute commise / subie » proposés (y compris pour corriger)
+OK   la réponse déjà donnée et les questions de précision ne sont pas modifiées
+OK   les 18 réponses V1 sont importées à l'identique
+OK   un chrono V1 nul reste nul (non converti)
+OK   un second import ne duplique ni n'écrase rien
+OK   un passage sans tableau devient « sans tableau », pas du direct
+OK   pendant un ralenti, aucun chrono de direct n'est attribué
+OK   chrono du direct = temps fichier + décalage du segment
+OK   même décalage après un ralenti sans coupure
+OK   le gel d'image est isolé
+OK   après le gel, un NOUVEAU décalage est estimé (pas de report constant)
+OK   une erreur de lecture persistante encadrée est rejetée (A–B–C)
+OK   bandeau pendant le direct : chrono interpolé et signalé
+OK   temps additionnel représenté « 90:00 +1:10 »
+OK   conversion inverse chrono additionnel → fichier
+OK   une réponse à t=6 s ne vaut qu'entre le croisement (4 s) et le trou de suivi (9,8 s)
+OK   tronçons d'une piste coupés aux croisements et aux trous
+OK   distance d'un trajet connu (26,16 m) retrouvée
+OK   sprint ≥ 25,2 km/h pendant ≥ 1 s détecté
+OK   un trou de suivi n'est pas interpolé (distance non inventée)
+OK   homographie retrouvée et contrôlée (en laisser un)
+OK   4 repères dont 3 alignés : calibration refusée
+OK   repères contradictoires : calibration refusée (écart moyen > 1 m)
+OK   bandeau « 19. CHRAMI » rapproché de Othmane Chraibi (numero_et_nom)
+OK   bandeau « 30. AGBEXPORNU » rapproché de Michael Agbekpornu (numero_et_nom)
+OK   bandeau « 6. SARHOK » rapproché de Aymen Barkok (numero_et_nom)
+OK   bandeau « 84. BAKIZ » rapproché de Younes Bakiz (nom_seul)
+OK   bandeau « 9. KHAR » rapproché de Ismail Khafi (numero_et_nom)
+OK   réponse V1 « 20 » = Dahmani, n°11 sur ce match
+OK   bandeaux adverses (retour de Dahmani, Bakiz déjà sorti, paire sortie/entrée) écartés ; les vrais remplacements restent
+OK   le motif est expliqué : un joueur remplacé ne revient pas
+OK   contrôle idempotent
+OK   équipe du bandeau lue par la position de l'étiquette, quel que soit le nombre de lignes
+OK   possession : ballon aux pieds attribué ; ballon disputé ou éloigné, rien n'est attribué
+OK   calibration automatique retrouvée sur image synthétique (écart médian 0.0 px)
+OK   xG du but V2 recalculé à l'identique
+OK   centre de la caméra retrouvé (écart 0.08 m), plan d'une autre caméra écarté
+OK   site : sources réécrites pour le public, sans doublon
+OK   site : valeur négative et fiabilité inconnue refusées
+OK   site v1 : possession, distances, vitesses, xG/xA et passes retirées ; le reste gardé ; entrée intacte
+OK   site (décision du 18/10) : estimations expérimentales gardées en fiabilité faible, possession marquée, entrée intacte
+OK   recalage de deux enregistrements : décalage 0.167 s (attendu 0,167)
+OK   question groupée : une réponse vaut pour chaque séquence (pistes 2 et 3)
+OK   revérification en attente : l'ancienne réponse reste en vigueur
+OK   revérification répondue : elle remplace l'ancienne réponse
+OK   revérification « je ne sais pas » : l'ancienne réponse n'est plus utilisée
+OK   mode sans questions : les questions ouvertes sont fermées, sauf celles gardées et les bloquantes
+
+55 vérifications réussies.

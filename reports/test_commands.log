@@ -1,0 +1,26 @@
+test_all_color_clusters_must_be_confirmed (test_commands.Commands.test_all_color_clusters_must_be_confirmed) ... ok
+test_appearance_and_arbitrary_confidence_rejected (test_commands.Commands.test_appearance_and_arbitrary_confidence_rejected) ... ok
+test_cli_from_other_working_directory (test_commands.Commands.test_cli_from_other_working_directory) ... ok
+test_comparison_does_not_hide_score_regression (test_commands.Commands.test_comparison_does_not_hide_score_regression) ... ok
+test_conflicting_match_config_not_overwritten (test_commands.Commands.test_conflicting_match_config_not_overwritten) ... ok
+test_csv_formula_is_text (test_commands.Commands.test_csv_formula_is_text) ... ok
+test_duplicate_json_key_stops (test_commands.Commands.test_duplicate_json_key_stops) ... ok
+test_duplicate_number_in_one_team_stops (test_commands.Commands.test_duplicate_number_in_one_team_stops) ... ok
+test_empty_resolution_stays_unknown (test_commands.Commands.test_empty_resolution_stays_unknown) ... ok
+test_engine_untouched (test_commands.Commands.test_engine_untouched) ... ok
+test_event_identity_requires_095 (test_commands.Commands.test_event_identity_requires_095) ... ok
+test_event_player_cannot_bypass_resolver (test_commands.Commands.test_event_player_cannot_bypass_resolver) ... ok
+test_experimental_values_forced_low (test_commands.Commands.test_experimental_values_forced_low) ... ok
+test_missing_roster_stops (test_commands.Commands.test_missing_roster_stops) ... ok
+test_new_club_resolves_and_unknown_clock_abstains (test_commands.Commands.test_new_club_resolves_and_unknown_clock_abstains) ... ok
+test_nonfinite_and_duplicate_observations_rejected (test_commands.Commands.test_nonfinite_and_duplicate_observations_rejected) ... ok
+test_opponent_requires_own_roster (test_commands.Commands.test_opponent_requires_own_roster) ... ok
+test_same_number_allowed_on_different_teams (test_commands.Commands.test_same_number_allowed_on_different_teams) ... ok
+test_threshold_boundaries_and_no_guess_leak (test_commands.Commands.test_threshold_boundaries_and_no_guess_leak) ... ok
+test_unknown_crop_rejected (test_commands.Commands.test_unknown_crop_rejected) ... ok
+test_unreadable_null_and_confidence_mapping (test_commands.Commands.test_unreadable_null_and_confidence_mapping) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 1.109s
+
+OK

@@ -1,0 +1,19 @@
+{
+  "scenario": "Publication de données exclusivement synthétiques dans un contexte neuf",
+  "skill": "botola-insight",
+  "observations": 12,
+  "published": 8,
+  "unknown": 4,
+  "coverage_pct": 66.67,
+  "identified_players": 2,
+  "events": 3,
+  "events_with_identity": 1,
+  "thresholds": {
+    "visible_time": 0.9,
+    "events": 0.95
+  },
+  "code_modified_by_agent": false,
+  "blocking_issue": null,
+  "video_accuracy_measured": false,
+  "step1_passed": false
+}

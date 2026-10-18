@@ -1,0 +1,1 @@
+-r botola-insight/scripts/requirements.txt

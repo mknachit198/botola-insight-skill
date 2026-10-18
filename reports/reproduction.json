@@ -1,0 +1,34 @@
+{
+  "purpose": "reproduction seule",
+  "hashes": {
+    "tracklets_part7.jsonl": {
+      "expected": "773c4f5b19da672fabe9f32787797339b0ab0d527aaacdad32ee1f5eb076cb03",
+      "actual": "773c4f5b19da672fabe9f32787797339b0ab0d527aaacdad32ee1f5eb076cb03",
+      "reference": "773c4f5b19da672fabe9f32787797339b0ab0d527aaacdad32ee1f5eb076cb03",
+      "equal": true
+    },
+    "evidence_part7.jsonl": {
+      "expected": "f29af3da57f41dcb2b06fea2f26bd3bcb85e923f602616ad1ddabc6d41222977",
+      "actual": "f29af3da57f41dcb2b06fea2f26bd3bcb85e923f602616ad1ddabc6d41222977",
+      "reference": "f29af3da57f41dcb2b06fea2f26bd3bcb85e923f602616ad1ddabc6d41222977",
+      "equal": true
+    }
+  },
+  "evaluation_deterministic_equal": true,
+  "metadata_exception_paths": [
+    "/mesure",
+    "/results/E_v7_seul/resolve_wall_s",
+    "/results/E_v7_seul/unit_contradictions",
+    "/results/F_union/resolve_wall_s",
+    "/results/F_union/unit_contradictions",
+    "/results/E_union/resolve_wall_s",
+    "/results/E_union/unit_contradictions",
+    "/results/E_vlm_seul/resolve_wall_s",
+    "/results/E_vlm_seul/unit_contradictions",
+    "/results/P0_point_zero/resolve_wall_s",
+    "/results/P0_point_zero/unit_contradictions",
+    "/results/K_union/resolve_wall_s",
+    "/results/K_union/unit_contradictions"
+  ],
+  "evaluation_byte_identical": false
+}

@@ -1,0 +1,16 @@
+test_analyze_fifteen_motion_five_detections_and_resume (__main__.TrackingTests.test_analyze_fifteen_motion_five_detections_and_resume) ... ok
+test_isolated_opponent_frame_is_not_attributed (__main__.TrackingTests.test_isolated_opponent_frame_is_not_attributed) ... ok
+test_merged_tracks_keep_identity_boundaries (__main__.TrackingTests.test_merged_tracks_keep_identity_boundaries) ... ok
+test_motion_order_and_missing (__main__.TrackingTests.test_motion_order_and_missing) ... ok
+test_old_partial_analysis_is_not_mixed (__main__.TrackingTests.test_old_partial_analysis_is_not_mixed) ... ok
+test_overlap_and_ambiguity_abstain (__main__.TrackingTests.test_overlap_and_ambiguity_abstain) ... ok
+test_refine_cache_rebuilds_after_team_change (__main__.TrackingTests.test_refine_cache_rebuilds_after_team_change) ... ok
+test_restart_archives_without_touching_questions (__main__.TrackingTests.test_restart_archives_without_touching_questions) ... ok
+test_short_fragments_after_split (__main__.TrackingTests.test_short_fragments_after_split) ... ok
+test_short_link_and_forbidden_boundaries (__main__.TrackingTests.test_short_link_and_forbidden_boundaries) ... ok
+test_split_remaps_numbers_and_leading_unknown (__main__.TrackingTests.test_split_remaps_numbers_and_leading_unknown) ... ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.039s
+
+OK

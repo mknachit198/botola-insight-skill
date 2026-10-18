@@ -1,0 +1,21 @@
+{
+  "first": {
+    "planches": 83,
+    "crops": 994,
+    "crops_metadata_equal": true,
+    "extra_selection_fields": [
+      "second_pass",
+      "use_back"
+    ],
+    "images_compared": 83,
+    "images_sha256_equal": 83
+  },
+  "second": {
+    "planches": 23,
+    "crops": 381,
+    "crops_metadata_equal": true,
+    "extra_selection_fields": [],
+    "images_compared": 23,
+    "images_sha256_equal": 23
+  }
+}

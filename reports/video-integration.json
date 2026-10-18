@@ -1,0 +1,24 @@
+{
+  "video_duration_s": 303.766667,
+  "video_sha256": "40f39be131735219b1e79dd7aceefd3517adc939256a5298df4f1d95d59dba63",
+  "input_dimensions": [
+    1920,
+    1080
+  ],
+  "input_fps": 30,
+  "live_s_analyzed": 257.8,
+  "detection_frames": 1289,
+  "camera_frames": 3867,
+  "compute_s": 844.363,
+  "refinement_s": 1.979,
+  "timeline_source": "timeline validée du relais",
+  "colors_source": "confirmation conservée dans le relais",
+  "fresh_number_readings": false,
+  "readings_source": "lectures historiques pour reproduction",
+  "tracklets_sha256": "773c4f5b19da672fabe9f32787797339b0ab0d527aaacdad32ee1f5eb076cb03",
+  "evidence_sha256": "f29af3da57f41dcb2b06fea2f26bd3bcb85e923f602616ad1ddabc6d41222977",
+  "original_engine_modified": false,
+  "raw_frames_byte_identical": false,
+  "raw_frames_differences": "Arrondis de matrices H (2433 scalaires) et 11 tableaux num historiques absents de la relance ; pistes, cadres et JSONL de couche 1/preuves reproduits.",
+  "telemetry": "Premier essai bloqué par le contrôle automatique ; relance avec ORT_DISABLE_TELEMETRY=1 avant import et API disable_telemetry_events avant inférence, analyse terminée."
+}

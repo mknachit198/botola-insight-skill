@@ -1,0 +1,180 @@
+{
+  "set": "test",
+  "purpose": "reproduction seule, aucun réglage",
+  "results": {
+    "P0_point_zero": {
+      "gt_obs": 5949,
+      "gt_obs_with_number": 5290,
+      "gt_chains": 82,
+      "published_verifiable": 1305,
+      "correct": 1256,
+      "wrong": 49,
+      "published_unverifiable": 90,
+      "precision_pct": 96.25,
+      "precision_ci95": [
+        95.1,
+        97.1
+      ],
+      "coverage_pct": 24.67,
+      "correct_coverage_pct": 23.74,
+      "floor_pct": 0.0,
+      "resolve_wall_s": 0.042,
+      "threshold": 0.9,
+      "chain_contradictions": {
+        "chains_two_numbers": 0,
+        "chains_2plus_reads": 19,
+        "pct": 0.0
+      },
+      "unit_contradictions": {
+        "units_two_numbers": 0,
+        "units_2plus_reads": 15,
+        "pct": 0.0
+      }
+    },
+    "E_union": {
+      "gt_obs": 5949,
+      "gt_obs_with_number": 5290,
+      "gt_chains": 82,
+      "published_verifiable": 3403,
+      "correct": 3113,
+      "wrong": 290,
+      "published_unverifiable": 154,
+      "precision_pct": 91.48,
+      "precision_ci95": [
+        90.5,
+        92.4
+      ],
+      "coverage_pct": 64.33,
+      "correct_coverage_pct": 58.85,
+      "floor_pct": 10.6,
+      "resolve_wall_s": 0.018,
+      "threshold": 0.9,
+      "chain_contradictions": {
+        "chains_two_numbers": 5,
+        "chains_2plus_reads": 35,
+        "pct": 14.3
+      },
+      "unit_contradictions": {
+        "units_two_numbers": 5,
+        "units_2plus_reads": 35,
+        "pct": 14.3
+      }
+    },
+    "F_union": {
+      "gt_obs": 5949,
+      "gt_obs_with_number": 5290,
+      "gt_chains": 82,
+      "published_verifiable": 3528,
+      "correct": 3160,
+      "wrong": 368,
+      "published_unverifiable": 154,
+      "precision_pct": 89.57,
+      "precision_ci95": [
+        88.5,
+        90.5
+      ],
+      "coverage_pct": 66.69,
+      "correct_coverage_pct": 59.74,
+      "floor_pct": 10.6,
+      "resolve_wall_s": 0.014,
+      "threshold": 0.9,
+      "chain_contradictions": {
+        "chains_two_numbers": 5,
+        "chains_2plus_reads": 35,
+        "pct": 14.3
+      },
+      "unit_contradictions": {
+        "units_two_numbers": 4,
+        "units_2plus_reads": 37,
+        "pct": 10.8
+      }
+    },
+    "K_union": {
+      "gt_obs": 5949,
+      "gt_obs_with_number": 5290,
+      "gt_chains": 82,
+      "published_verifiable": 3536,
+      "correct": 3190,
+      "wrong": 346,
+      "published_unverifiable": 173,
+      "precision_pct": 90.21,
+      "precision_ci95": [
+        89.2,
+        91.2
+      ],
+      "coverage_pct": 66.84,
+      "correct_coverage_pct": 60.3,
+      "floor_pct": 10.6,
+      "resolve_wall_s": 0.015,
+      "threshold": 0.9,
+      "chain_contradictions": {
+        "chains_two_numbers": 5,
+        "chains_2plus_reads": 35,
+        "pct": 14.3
+      },
+      "unit_contradictions": {
+        "units_two_numbers": 0,
+        "units_2plus_reads": 36,
+        "pct": 0.0
+      }
+    },
+    "E_vlm_seul": {
+      "gt_obs": 5949,
+      "gt_obs_with_number": 5290,
+      "gt_chains": 82,
+      "published_verifiable": 3286,
+      "correct": 2996,
+      "wrong": 290,
+      "published_unverifiable": 154,
+      "precision_pct": 91.17,
+      "precision_ci95": [
+        90.2,
+        92.1
+      ],
+      "coverage_pct": 62.12,
+      "correct_coverage_pct": 56.64,
+      "floor_pct": 10.6,
+      "resolve_wall_s": 0.014,
+      "threshold": 0.9,
+      "chain_contradictions": {
+        "chains_two_numbers": 5,
+        "chains_2plus_reads": 33,
+        "pct": 15.2
+      },
+      "unit_contradictions": {
+        "units_two_numbers": 5,
+        "units_2plus_reads": 33,
+        "pct": 15.2
+      }
+    },
+    "E_v7_seul": {
+      "gt_obs": 5949,
+      "gt_obs_with_number": 5290,
+      "gt_chains": 82,
+      "published_verifiable": 2394,
+      "correct": 2141,
+      "wrong": 253,
+      "published_unverifiable": 112,
+      "precision_pct": 89.43,
+      "precision_ci95": [
+        88.1,
+        90.6
+      ],
+      "coverage_pct": 45.26,
+      "correct_coverage_pct": 40.47,
+      "floor_pct": 0.0,
+      "resolve_wall_s": 0.009,
+      "threshold": 0.9,
+      "chain_contradictions": {
+        "chains_two_numbers": 0,
+        "chains_2plus_reads": 19,
+        "pct": 0.0
+      },
+      "unit_contradictions": {
+        "units_two_numbers": 0,
+        "units_2plus_reads": 19,
+        "pct": 0.0
+      }
+    }
+  }
+}

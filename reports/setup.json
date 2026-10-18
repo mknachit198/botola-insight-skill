@@ -1,0 +1,21 @@
+{
+  "python": "3.12.14",
+  "dependencies": {
+    "numpy": "2.3.5",
+    "opencv-python-headless": "5.0.0.93",
+    "onnxruntime": "1.31.0",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "pytesseract": "0.3.13",
+    "flask": "3.1.3",
+    "Pillow": "13.0.0",
+    "ortools": "9.15.6755"
+  },
+  "tools": {
+    "ffmpeg": true,
+    "ffprobe": true,
+    "tesseract": true
+  },
+  "engine_files_verified": 57,
+  "missing": []
+}
