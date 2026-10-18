@@ -17,12 +17,12 @@ Aucune vidéo, aucun modèle ONNX, aucune planche, lecture réelle ou annotation
 
 ## Récupérer le dépôt
 
-Nom prévu : `mcsanchez198/botola-insight-skill`, public, licence MIT. Le ZIP livré constitue le dépôt prêt à publier ; sa présence ne signifie pas qu’un dépôt GitHub a déjà été créé.
+Nom prévu : `mknachit198/botola-insight-skill`, public, licence MIT. Le ZIP livré constitue le dépôt prêt à publier ; sa présence ne signifie pas qu’un dépôt GitHub a déjà été créé.
 
 Après sa publication :
 
 ```bash
-git clone https://github.com/mcsanchez198/botola-insight-skill.git
+git clone https://github.com/mknachit198/botola-insight-skill.git
 cd botola-insight-skill
 ```
 
