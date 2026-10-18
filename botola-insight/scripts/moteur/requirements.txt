@@ -1,9 +1,0 @@
-# Moteur Raja Insight — dépendances Python (aucune ne contient de télémétrie connue ;
-# Ultralytics n'est PAS utilisé). Outils système : ffmpeg/ffprobe, tesseract-ocr.
-numpy>=1.26
-opencv-python-headless>=4.9
-onnxruntime>=1.17
-scipy>=1.11
-scikit-learn>=1.4
-pytesseract>=0.3.10
-flask>=3.0

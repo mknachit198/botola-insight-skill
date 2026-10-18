@@ -1,2 +1,0 @@
-# Facultatif : uniquement pour le solveur expérimental de numéros de maillots.
-ortools>=9.15,<10
